@@ -1,25 +1,25 @@
 <?php
 //include database configuration file
-include 'dbConfig.php';
+include __DIR__ . '/dbConfig.php';
 
 //get records from database
-$query = $db->query("SELECT * FROM members ORDER BY id DESC");
+$query = $db->query("SELECT * FROM emp");
 
 if($query->num_rows > 0){
     $delimiter = ",";
-    $filename = "members_" . date('Y-m-d') . ".csv";
+    $filename = "empleados_" . date('Y-m-d') . ".csv";
     
     //create a file pointer
     $f = fopen('php://memory', 'w');
     
     //set column headers
-    $fields = array('ID', 'Name', 'Email', 'Phone', 'Created', 'Status');
+    $fields = array('ID', 'Name', 'Email', 'Salary', 'Age');
     fputcsv($f, $fields, $delimiter);
     
     //output each row of the data, format line as csv and write to file pointer
     while($row = $query->fetch_assoc()){
-        $status = ($row['status'] == '1')?'Active':'Inactive';
-        $lineData = array($row['id'], $row['name'], $row['email'], $row['phone'], $row['created'], $status);
+        //$status = ($row['status'] == '1')?'Active':'Inactive';
+        $lineData = array($row['emp_id'], $row['emp_name'], $row['emp_email'], $row['emp_salary'], $row['emp_age']);
         fputcsv($f, $lineData, $delimiter);
     }
     
