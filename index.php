@@ -15,6 +15,17 @@ CREATE TABLE IF NOT EXISTS `emp` (
 PRIMARY KEY (`emp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
+**********BASE SIN LLAVE FORANEA NI COMENTARIOS**********
+CREATE DATABASE emp;
+CREATE TABLE IF NOT EXISTS `emp` (
+`emp_id` int(11) NOT NULL,
+`emp_name` varchar(255),
+`emp_email` varchar(100) NOT NULL,
+`emp_salary` double NOT NULL,
+`emp_age` int(11) NOT NULL,
+PRIMARY KEY (`emp_id`)
+) ENGINE=InnoDB  CHARSET=latin1;
+
 
 *AL IMPLEMENTAR ESTE MODULO DE DESCARGA DEBE SER PERONALIZABLE PARA CADA QWERY REQUERIDO GENERANDO 'n' ARCHIVOS 'exportData.php' como se requiera
 -->
@@ -24,6 +35,8 @@ PRIMARY KEY (`emp_id`)
     <div class="panel panel-default">
         <div class="panel-heading">
             Archivo Generado
+            <!--AÑADIR UN METODO POST A 'btn' PARA ENVIAR A exportData.php el qwery a ejecutar en front se muestra la descripcion pero de manera interna se maneja como numpero para ser trabajado como un switch case dentro de exportData y asi evitar generar multiples archivos para las diferentes consultas-->
+            
             <a href="exportData.php" class="btn btn-success pull-right">Export Members</a>
         </div>
         <div class="panel-body">
@@ -43,7 +56,8 @@ PRIMARY KEY (`emp_id`)
                 include __DIR__ . '/dbConfig.php';
                 
                 
-
+//INCLUIR ESTE QWERY DENTRO DE EXPORTDATA.PHP PARA QUE AL MOMENTO DE GENERAR EL ARCHIVO A DESCARGAR SEA DESPLEGADA LA INFORMACION GENERADA DE LA NUEVA CONSULTA
+                    
                 $sql = "SELECT * FROM emp ";
                 $resultset = mysqli_query($db, $sql) or die("database error:". mysqli_error($conn));
                 if(mysqli_num_rows($resultset)) {
@@ -53,8 +67,9 @@ PRIMARY KEY (`emp_id`)
             <td><?php echo $rows['emp_id']; ?></td>
             <td><?php echo $rows['emp_name']; ?></td>
             <td><?php echo $rows['emp_email']; ?></td>
-            <td><?php echo $rows['emp_salary']; ?></td>
             <td><?php echo $rows['emp_age']; ?></td>
+            <td><?php echo $rows['emp_salary']; ?></td>
+
             </tr>
                 <?php } } else { ?>
                 <tr><td colspan="5">Sin información para mostrar</td></tr>

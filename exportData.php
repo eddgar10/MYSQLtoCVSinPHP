@@ -3,7 +3,7 @@
 include __DIR__ . '/dbConfig.php';
 
 //get records from database
-$query = $db->query("SELECT * FROM emp");
+$query = $db->query("SELECT * FROM emp WHERE emp_age <>18  ");
 
 if($query->num_rows > 0){
     $delimiter = ",";
@@ -34,5 +34,4 @@ if($query->num_rows > 0){
     fpassthru($f);
 }
 exit;
-
 ?>
